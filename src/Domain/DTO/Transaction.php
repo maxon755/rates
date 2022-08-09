@@ -6,9 +6,10 @@ namespace App\Domain;
 
 class Transaction
 {
-    public readonly int $bin;
-
-    public readonly float $amount;
-
-    public readonly string $currency;
+    public function __construct(
+        public readonly int $bin,
+        public readonly float $amount,
+        public readonly string $currency,
+    ) {
+    }
 }
