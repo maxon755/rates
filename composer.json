@@ -11,5 +11,7 @@
             "email": "maksym.haiduk@gmail.com"
         }
     ],
-    "require": {}
+    "require": {
+        "php": "8.1"
+    }
 }
