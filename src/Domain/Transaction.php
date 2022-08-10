@@ -12,4 +12,9 @@ class Transaction
         public readonly string $currency,
     ) {
     }
+
+    public function isEuroCurrency(): bool
+    {
+        return $this->currency === 'EUR';
+    }
 }
