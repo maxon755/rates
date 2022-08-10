@@ -9,8 +9,8 @@ use App\Domain\CurrencyConverter\CurrencyConverter;
 
 class CommissionService
 {
-    private const EURO_COUNTRIES_COMMISSION_FRACTION = 0.1;
-    private const NON_EURO_COUNTRIES_COMMISSION_FRACTION = 0.2;
+    private const EURO_COUNTRIES_COMMISSION_FRACTION = 0.01;
+    private const NON_EURO_COUNTRIES_COMMISSION_FRACTION = 0.02;
 
     public function __construct(
         private CountryResolver $countryResolver,
