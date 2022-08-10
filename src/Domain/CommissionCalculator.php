@@ -7,7 +7,7 @@ namespace App\Domain;
 use App\Domain\CountryResolver\CountryResolver;
 use App\Domain\CurrencyConverter\CurrencyConverter;
 
-class CommissionService
+class CommissionCalculator
 {
     private const EURO_COUNTRIES_COMMISSION_FRACTION = 0.01;
     private const NON_EURO_COUNTRIES_COMMISSION_FRACTION = 0.02;

@@ -2,25 +2,25 @@
 
 declare(strict_types=1);
 
-use App\Domain\CommissionService;
+use App\Domain\CommissionCalculator;
 use App\Domain\Country;
 use App\Domain\CountryResolver\CountryResolver;
 use App\Domain\CurrencyConverter\CurrencyConverter;
 use App\Domain\Transaction;
 use PHPUnit\Framework\TestCase;
 
-class CommissionServiceUnitTest extends TestCase
+class CommissionCalculatorUnitTest extends TestCase
 {
     private CountryResolver $countryResolver;
     private CurrencyConverter $currencyConverter;
-    private CommissionService $commissionService;
+    private CommissionCalculator $commissionCalculator;
 
     protected function setUp(): void
     {
         $this->countryResolver = $this->createMock(CountryResolver::class);
         $this->currencyConverter = $this->createMock(CurrencyConverter::class);
 
-        $this->commissionService = new CommissionService($this->countryResolver, $this->currencyConverter);
+        $this->commissionCalculator = new CommissionCalculator($this->countryResolver, $this->currencyConverter);
     }
 
     /**
@@ -43,7 +43,7 @@ class CommissionServiceUnitTest extends TestCase
             ->expects($this->never())
             ->method('convertToEuro');
 
-        $commission = $this->commissionService->calculateTransactionCommission($transaction);
+        $commission = $this->commissionCalculator->calculateTransactionCommission($transaction);
 
         $this->assertEquals(1, $commission);
     }
@@ -68,7 +68,7 @@ class CommissionServiceUnitTest extends TestCase
             ->expects($this->never())
             ->method('convertToEuro');
 
-        $commission = $this->commissionService->calculateTransactionCommission($transaction);
+        $commission = $this->commissionCalculator->calculateTransactionCommission($transaction);
 
         $this->assertEquals(2, $commission);
     }
@@ -95,7 +95,7 @@ class CommissionServiceUnitTest extends TestCase
             ->willReturn(100.00)
         ;
 
-        $commission = $this->commissionService->calculateTransactionCommission($transaction);
+        $commission = $this->commissionCalculator->calculateTransactionCommission($transaction);
 
         $this->assertEquals(2, $commission);
     }
