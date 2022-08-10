@@ -41,7 +41,7 @@ class Country
     ) {
     }
 
-    public function isEuroCountry(): bool
+    public function isEUCountry(): bool
     {
         return \in_array($this->code, self::EURO_COUNTRY_CODES, true);
     }

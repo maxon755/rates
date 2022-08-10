@@ -34,7 +34,7 @@ class CommissionService
 
     private function getCommissionFractionForCountry(Country $country): float
     {
-        return $country->isEuroCountry() ?
+        return $country->isEUCountry() ?
             self::EURO_COUNTRIES_COMMISSION_FRACTION :
             self::NON_EURO_COUNTRIES_COMMISSION_FRACTION;
     }
