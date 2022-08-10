@@ -9,15 +9,13 @@ use App\Domain\CurrencyConverter\CurrencyConverter;
 
 class CommissionService
 {
-    private const EURO_COUNTRIES_COMMISSION_FRACTION     = 0.1;
+    private const EURO_COUNTRIES_COMMISSION_FRACTION = 0.1;
     private const NON_EURO_COUNTRIES_COMMISSION_FRACTION = 0.2;
 
     public function __construct(
-        private CountryResolver    $countryResolver,
+        private CountryResolver $countryResolver,
         private CurrencyConverter $currencyConverter
-    )
-    {
-
+    ) {
     }
 
     public function calculateTransactionCommission(Transaction $transaction): float
@@ -40,5 +38,4 @@ class CommissionService
             self::EURO_COUNTRIES_COMMISSION_FRACTION :
             self::NON_EURO_COUNTRIES_COMMISSION_FRACTION;
     }
-
 }

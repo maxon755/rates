@@ -36,7 +36,6 @@ class Country
         'SK',
     ];
 
-
     public function __construct(
         public readonly string $code
     ) {
@@ -44,6 +43,6 @@ class Country
 
     public function isEuroCountry(): bool
     {
-        return in_array($this->code, self::EURO_COUNTRY_CODES);
+        return \in_array($this->code, self::EURO_COUNTRY_CODES, true);
     }
 }
