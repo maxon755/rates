@@ -8,5 +8,11 @@ use App\Domain\Country;
 
 interface CountryResolver
 {
+    /**
+     * @param int $bin
+     * @return Country
+     *
+     * @throws CountryResolvingException
+     */
     public function resolveCountryByBin(int $bin): Country;
 }
