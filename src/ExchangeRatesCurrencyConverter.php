@@ -5,12 +5,14 @@ declare(strict_types=1);
 namespace App;
 
 use App\Domain\CurrencyConverter\CurrencyConverter;
+use App\Domain\Money\Currency;
+use App\Domain\Money\Money;
 
 class ExchangeRatesCurrencyConverter implements CurrencyConverter
 {
 
-    public function convertToEuro(float $amount, string $currency): float
+    public function convertToEuro(Money $moneyFrom): Money
     {
-        return 42.42;
+        return new Money(42.42, Currency::EUR);
     }
 }

@@ -22,14 +22,14 @@ class CommissionCalculator
     {
         $country = $this->countryResolver->resolveCountryByBin($transaction->bin);
 
-        $amount = $transaction->amount;
-        if (!$transaction->isEuroCurrency()) {
-            $amount = $this->currencyConverter->convertToEuro($amount, $transaction->currency);
+        $money = $transaction->money;
+        if (!$money->currency->isEuro()) {
+            $money = $this->currencyConverter->convertToEuro($transaction->money);
         }
 
         $commissionFraction = $this->getCommissionFractionForCountry($country);
 
-        return $amount * $commissionFraction;
+        return $money->amount * $commissionFraction;
     }
 
     private function getCommissionFractionForCountry(Country $country): float

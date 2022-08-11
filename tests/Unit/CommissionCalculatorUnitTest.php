@@ -6,6 +6,9 @@ use App\Domain\CommissionCalculator;
 use App\Domain\Country;
 use App\Domain\CountryResolver\CountryResolver;
 use App\Domain\CurrencyConverter\CurrencyConverter;
+use App\Domain\Money\Currency;
+use App\Domain\Money\Euro;
+use App\Domain\Money\Money;
 use App\Domain\Transaction;
 use PHPUnit\Framework\TestCase;
 
@@ -30,8 +33,7 @@ class CommissionCalculatorUnitTest extends TestCase
     {
         $transaction = new Transaction(
             4242,
-            100.00,
-            'EUR'
+            new Euro(100.00),
         );
 
         $this->countryResolver->expects($this->once())
@@ -55,8 +57,7 @@ class CommissionCalculatorUnitTest extends TestCase
     {
         $transaction = new Transaction(
             4242,
-            100.00,
-            'EUR'
+            new Euro(100.00),
         );
 
         $this->countryResolver->expects($this->once())
@@ -80,8 +81,7 @@ class CommissionCalculatorUnitTest extends TestCase
     {
         $transaction = new Transaction(
             4242,
-            4000.00,
-            'UAH'
+            new Money(4000.00, Currency::UAH),
         );
 
         $this->countryResolver->expects($this->once())
@@ -92,7 +92,7 @@ class CommissionCalculatorUnitTest extends TestCase
         $this->currencyConverter
             ->expects($this->once())
             ->method('convertToEuro')
-            ->willReturn(100.00)
+            ->willReturn(new Euro(100.00))
         ;
 
         $commission = $this->commissionCalculator->calculateTransactionCommission($transaction);

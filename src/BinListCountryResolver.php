@@ -10,13 +10,12 @@ use App\Domain\CountryResolver\CountryResolvingException;
 
 class BinListCountryResolver implements CountryResolver
 {
-
     public function resolveCountryByBin(int $bin): Country
     {
         $response = file_get_contents('https://lookup.binlist.net/' . $bin);
 
         if (!$response) {
-            throw new CountryResolvingException("Failed to fetch data");
+            throw new CountryResolvingException('Failed to fetch data');
         }
 
         try {
