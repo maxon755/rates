@@ -30,9 +30,7 @@ class CommissionCalculator
         }
 
         $commissionFraction = $this->getCommissionFractionForCountry($country);
-
         $commissionAmount = $money->amount * $commissionFraction;
-
         $commissionAmount = $this->roundUp($commissionAmount, 2);
 
         return new Euro($commissionAmount);

@@ -30,7 +30,6 @@ foreach ($fileReader->read($filePath) as $line) {
      * @var array{bin: int, amount: float, currency: string} $transactionData
      */
     $transactionData = json_decode($line, associative: true);
-
     $transaction = new Transaction(
         $transactionData['bin'],
         new Money($transactionData['amount'], Currency::from($transactionData['currency']))

@@ -45,12 +45,10 @@ class ExchangeRatesCurrencyConverter implements CurrencyConverter
              * @var array{result: float}
              */
             $exchangeData = json_decode((string) $response->getBody(), associative: true);
-
             $convertedAmount = $exchangeData['result'];
         } catch (\Throwable $exception) {
             throw new CurrencyConverterException($exception->getMessage());
         }
-
 
         return new Money($convertedAmount, Currency::EUR);
     }
