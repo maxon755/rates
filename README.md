@@ -5,7 +5,7 @@ Copy .env.dist to .env with:
 cp .env.dist .env
 ```
 
-and put you access key to `EXCHANGE_RATES_API_TOKEN` variable.
+and put your access key to `EXCHANGE_RATES_API_TOKEN` variable.
 
 The app uses this [api](https://apilayer.com/marketplace/exchangerates_data-api#details-tab)
 to convert currencies. 
