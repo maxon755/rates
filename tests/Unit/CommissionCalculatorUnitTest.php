@@ -32,7 +32,7 @@ class CommissionCalculatorUnitTest extends TestCase
     public function it_can_calculate_commission_for_euro_credit_card(): void
     {
         $transaction = new Transaction(
-            4242,
+            42424242,
             new Euro(100.00),
         );
 
@@ -47,7 +47,7 @@ class CommissionCalculatorUnitTest extends TestCase
 
         $commission = $this->commissionCalculator->calculateTransactionCommission($transaction);
 
-        $this->assertEquals(1, $commission);
+        $this->assertEquals(1, $commission->amount);
     }
 
     /**
@@ -56,7 +56,7 @@ class CommissionCalculatorUnitTest extends TestCase
     public function it_can_calculate_commission_for_non_euro_credit_card(): void
     {
         $transaction = new Transaction(
-            4242,
+            42424242,
             new Euro(100.00),
         );
 
@@ -71,7 +71,7 @@ class CommissionCalculatorUnitTest extends TestCase
 
         $commission = $this->commissionCalculator->calculateTransactionCommission($transaction);
 
-        $this->assertEquals(2, $commission);
+        $this->assertEquals(2, $commission->amount);
     }
 
     /**
@@ -80,7 +80,7 @@ class CommissionCalculatorUnitTest extends TestCase
     public function it_can_calculate_commission_for_non_euro_currency(): void
     {
         $transaction = new Transaction(
-            4242,
+            42424242,
             new Money(4000.00, Currency::UAH),
         );
 
@@ -97,6 +97,25 @@ class CommissionCalculatorUnitTest extends TestCase
 
         $commission = $this->commissionCalculator->calculateTransactionCommission($transaction);
 
-        $this->assertEquals(2, $commission);
+        $this->assertEquals(2, $commission->amount);
+    }
+
+    /**
+     * @test
+     */
+    public function it_rounds_up_commission()
+    {
+        $transaction = new Transaction(
+            42424242,
+            new Euro(46.180),
+        );
+
+        $this->countryResolver
+            ->method('resolveCountryByBin')
+            ->willReturn(new Country('FR'));
+
+        $commission = $this->commissionCalculator->calculateTransactionCommission($transaction);
+
+        $this->assertEquals(0.47, $commission->amount);
     }
 }

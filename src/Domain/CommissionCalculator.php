@@ -6,6 +6,8 @@ namespace App\Domain;
 
 use App\Domain\CountryResolver\CountryResolver;
 use App\Domain\CurrencyConverter\CurrencyConverter;
+use App\Domain\Money\Euro;
+use App\Domain\Money\Money;
 
 class CommissionCalculator
 {
@@ -13,12 +15,13 @@ class CommissionCalculator
     private const NON_EURO_COUNTRIES_COMMISSION_FRACTION = 0.02;
 
     public function __construct(
-        private CountryResolver $countryResolver,
+        private CountryResolver   $countryResolver,
         private CurrencyConverter $currencyConverter
-    ) {
+    )
+    {
     }
 
-    public function calculateTransactionCommission(Transaction $transaction): float
+    public function calculateTransactionCommission(Transaction $transaction): Money
     {
         $country = $this->countryResolver->resolveCountryByBin($transaction->bin);
 
@@ -29,7 +32,19 @@ class CommissionCalculator
 
         $commissionFraction = $this->getCommissionFractionForCountry($country);
 
-        return $money->amount * $commissionFraction;
+        $commissionAmount = $money->amount * $commissionFraction;
+
+        $commissionAmount = $this->roundUp($commissionAmount, 2);
+
+        return new Euro($commissionAmount);
+
+    }
+
+    private function roundUp(float $value, int $precision): float
+    {
+        $pow = pow(10, $precision);
+
+        return (ceil($pow * $value) + ceil($pow * $value - ceil($pow * $value))) / $pow;
     }
 
     private function getCommissionFractionForCountry(Country $country): float
