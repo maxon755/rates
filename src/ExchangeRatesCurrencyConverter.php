@@ -10,6 +10,10 @@ use App\Domain\Money\Money;
 
 class ExchangeRatesCurrencyConverter implements CurrencyConverter
 {
+    public function __construct(private readonly string $apiToken)
+    {
+    }
+
 
     public function convertToEuro(Money $moneyFrom): Money
     {
