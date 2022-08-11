@@ -6,5 +6,4 @@ namespace App\Domain\CurrencyConverter;
 
 class CurrencyConverterException extends \Exception
 {
-
 }

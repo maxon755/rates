@@ -15,10 +15,9 @@ class CommissionCalculator
     private const NON_EURO_COUNTRIES_COMMISSION_FRACTION = 0.02;
 
     public function __construct(
-        private CountryResolver   $countryResolver,
+        private CountryResolver $countryResolver,
         private CurrencyConverter $currencyConverter
-    )
-    {
+    ) {
     }
 
     public function calculateTransactionCommission(Transaction $transaction): Money
@@ -37,12 +36,11 @@ class CommissionCalculator
         $commissionAmount = $this->roundUp($commissionAmount, 2);
 
         return new Euro($commissionAmount);
-
     }
 
     private function roundUp(float $value, int $precision): float
     {
-        $pow = pow(10, $precision);
+        $pow = 10 ** $precision;
 
         return (ceil($pow * $value) + ceil($pow * $value - ceil($pow * $value))) / $pow;
     }
